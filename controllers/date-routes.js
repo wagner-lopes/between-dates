@@ -1,9 +1,5 @@
 const router = require('express').Router();
-const { DateTime, Duration } = require("luxon");
-
-router.get('/', (req, res) => {
-    res.send('STILL WORKING!!! :)');
-});
+const { DateTime } = require("luxon");
 
 router.post('/interval', (req, res) => {
     //Extract parameters from the body of the request
@@ -50,6 +46,12 @@ router.post('/interval', (req, res) => {
         case ('weeks'):
             result = localEndDate.diff(localStartDate, 'weeks');
             break;
+        case ('weekdays'):
+            result = getBusinessDays(startDate, endDate);
+            res.send({
+                weekdays: result
+            });
+            return;
         case ('years'):
             result = localEndDate.diff(localStartDate, 'years');
             break;
@@ -59,5 +61,18 @@ router.post('/interval', (req, res) => {
 
     res.send(result.toObject())
 });
+
+function getBusinessDays(startDate, endDate) {
+    let localStartDate = DateTime.fromISO(startDate);
+    let localEndDate = DateTime.fromISO(endDate);
+    localEndDate = localEndDate.minus({ days: 1 });
+    let weekdays = 0;
+    while (localStartDate < localEndDate) {
+        localStartDate = localStartDate.plus({ days: 1 });
+        if (localStartDate.weekday < 6) weekdays++;
+    }
+
+    return weekdays;
+}
 
 module.exports = router;
