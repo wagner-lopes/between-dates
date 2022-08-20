@@ -17,10 +17,13 @@ router.post('/interval', (req, res) => {
     if (startDate) {
         localStartDate = DateTime.fromISO(startDate);
     } else {
-        localStartDate = DateTime.now();
+        localStartDate = DateTime.now().startOf("day");
     }
 
-    localEndDate = DateTime.fromISO(endDate);
+    localEndDate = DateTime.fromISO(endDate).startOf("day");
+
+    // localStartDate = resetTime(localStartDate);
+    // localEndDate = resetTime(localEndDate);
 
     if (!localStartDate) {
         res.send(`Wrong date format for the start date`);
@@ -36,6 +39,8 @@ router.post('/interval', (req, res) => {
 
     switch (dateFormat) {
         case ('seconds'):
+            //remove 1 day from the end date because of the way the seconds are calculated
+            localEndDate = localEndDate.minus({ days: 1 })
             result = localEndDate.diff(localStartDate, 'seconds');
             break;
         case ('minutes'):
@@ -59,10 +64,14 @@ router.post('/interval', (req, res) => {
         default:
             result = localEndDate.diff(localStartDate, 'days');
     }
-    resultData = transformResultsInInteger(result.toObject());
+    resultData = transformResultsInInteger(result.toObject(), dateFormat);
 
     res.send(resultData)
 });
+
+function resetTime(dateTime) {
+    return new DateTime(dateTime.year, dateTime.month, dateTime.day);
+}
 
 function transformResultsInInteger(result, dateFormat) {
     //Get the integer part of the result

@@ -46,4 +46,20 @@ public class UnitTest1
         //Assert
         Assert.Equal(6, response?.days);
     }
+
+    [Fact]
+    public async void TestResultsInSeconds()
+    {
+        //Prepare
+        String sameDayNextWeek = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd");
+        RequestData data = new RequestData("", sameDayNextWeek, "seconds");
+        BetweenDatesAPI api = new BetweenDatesAPI();
+        int secondsInSixDays = 6 * 24 * 60 * 60;
+
+        //Act
+        var response = await api.getInterval(data);
+
+        //Assert
+        Assert.Equal(secondsInSixDays, response?.seconds);
+    }
 }
