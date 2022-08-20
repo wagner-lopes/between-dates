@@ -27,8 +27,9 @@ namespace unitTests.BetweenDates
                 var responseModel = JsonConvert.DeserializeObject<getInterval>(context);
                 return responseModel;
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e);
                 return null;
             }
         }

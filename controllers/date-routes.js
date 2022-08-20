@@ -12,7 +12,8 @@ router.post('/interval', (req, res) => {
         res.send({ message: `endDate parameter is mandatory` });
         return;
     }
-    //Define
+
+    //Define localStartDate. Use today as default
     if (startDate) {
         localStartDate = DateTime.fromISO(startDate);
     } else {
@@ -58,9 +59,19 @@ router.post('/interval', (req, res) => {
         default:
             result = localEndDate.diff(localStartDate, 'days');
     }
+    resultData = transformResultsInInteger(result.toObject());
 
-    res.send(result.toObject())
+    res.send(resultData)
 });
+
+function transformResultsInInteger(result, dateFormat) {
+    //Get the integer part of the result
+    dateFormat ?
+        result[dateFormat] = Math.floor(result[dateFormat]) :
+        result["days"] = Math.floor(result["days"]);
+
+    return result;
+}
 
 function getBusinessDays(startDate, endDate) {
     let localStartDate = DateTime.fromISO(startDate);
