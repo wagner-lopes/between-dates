@@ -56,8 +56,31 @@ function getWeekdays(startDate, endDate) {
     return weekdays;
 }
 
+function getCompleteWeeks(startDate, endDate) {
+    //Considering Sunday as the last day of the week
+    //Get first Sunday
+    const firstDayOfWeek = getFirstDayOfCompleteWeek(startDate);
+    //Get last Sunday
+    const lastDayOfWeek = getLastDayOfCompleteWeek(endDate);
+    const completeWeeks = lastDayOfWeek.diff(firstDayOfWeek, 'weeks').toObject().weeks;
+    return completeWeeks;
+}
+
+function getFirstDayOfCompleteWeek(startDate) {
+    const daysToAdd = 7 - startDate.weekday;
+    const newStartDate = startDate.plus({ days: daysToAdd });
+    return newStartDate;
+}
+
+function getLastDayOfCompleteWeek(endDate) {
+    const daysToSubtract = endDate.weekday;
+    const newEndDate = endDate.minus({ days: daysToSubtract });
+    return newEndDate;
+}
+
 module.exports = {
     getWeekdays,
     applyDateFormat,
-    roundResults
+    roundResults,
+    getCompleteWeeks
 }
