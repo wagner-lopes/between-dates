@@ -20,7 +20,7 @@ router.post('/interval', (req, res) => {
         localStartDate = DateTime.now().startOf("day");
     }
 
-    localEndDate = DateTime.fromISO(endDate).startOf("day");
+    localEndDate = DateTime.fromISO(endDate).startOf("day").minus({ day: 1 });
 
     // localStartDate = resetTime(localStartDate);
     // localEndDate = resetTime(localEndDate);
@@ -39,13 +39,9 @@ router.post('/interval', (req, res) => {
 
     switch (dateFormat) {
         case ('seconds'):
-            //remove 1 day from the end date because of the way the seconds are calculated
-            localEndDate = localEndDate.minus({ days: 1 });
             result = localEndDate.diff(localStartDate, 'seconds');
             break;
         case ('minutes'):
-            //remove 1 day from the end date because of the way the minutes are calculated
-            localEndDate = localEndDate.minus({ days: 1 })
             result = localEndDate.diff(localStartDate, 'minutes');
             break;
         case ('hours'):
