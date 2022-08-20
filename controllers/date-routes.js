@@ -23,8 +23,10 @@ router.post('/interval', (req, res) => {
     //Getting the end date with zero hour and minus 1 day - End date not included
     localEndDate = DateTime.fromISO(endDate).startOf("day").minus({ day: 1 });
 
-    // localStartDate = resetTime(localStartDate);
-    // localEndDate = resetTime(localEndDate);
+    if (localStartDate >= localEndDate) {
+        res.send({ message: "endDate needs to be greater than startDate." });
+        return;
+    }
 
     if (!localStartDate) {
         res.send(`Wrong date format for the start date`);
@@ -100,7 +102,6 @@ function roundResults(result) {
 }
 
 function getWeekdays(startDate, endDate) {
-    endDate = endDate.minus({ days: 1 });
     let weekdays = 0;
     while (startDate < endDate) {
         startDate = startDate.plus({ days: 1 });

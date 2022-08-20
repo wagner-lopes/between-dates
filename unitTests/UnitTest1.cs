@@ -31,21 +31,59 @@ public class UnitTest1
         //Assert
         Assert.Equal(6, response?.days);
         Assert.Equal(5, response?.weekdays);
-        Assert.Equal(0, response?.weeks);
+        Assert.Equal(0, response?.completeWeeks);
     }
 
-    // [Fact]
-    // public async void TestDefaultStartDateAndDateFormat()
-    // {
-    //     //Prepare
-    //     String sameDayNextWeek = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd");
-    //     RequestData data = new RequestData("", sameDayNextWeek, "");
-    //     BetweenDatesAPI api = new BetweenDatesAPI();
+    [Fact]
+    public async void TestDefaultStartDateAndDateFormat()
+    {
+        //Prepare
+        String sameDayNextWeek = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd");
+        RequestData data = new RequestData("", sameDayNextWeek, "");
+        BetweenDatesAPI api = new BetweenDatesAPI();
 
-    //     //Act
-    //     var response = await api.getInterval(data);
+        //Act
+        var response = await api.getInterval(data);
 
-    //     //Assert
-    //     Assert.Equal(6, response?.days);
-    // }
+        //Assert
+        Assert.Equal(6, response?.days);
+        Assert.Equal(5, response?.weekdays);
+        Assert.Equal(0, response?.completeWeeks);
+    }
+
+    [Fact]
+    public async void TestStartDateGreaterThanEndDate()
+    {
+        //Prepare
+        RequestData data = new RequestData("2022-08-03", "2022-08-03", "");
+        BetweenDatesAPI api = new BetweenDatesAPI();
+
+        //Act
+        var response = await api.getInterval(data);
+
+        //Assert
+        Assert.Equal("endDate needs to be greater than startDate.", response?.message);
+    }
+
+    [Fact]
+    public async void TestResultsInSeconds()
+    {
+        //Prepare
+        RequestData data = new RequestData("2022-08-03", "2022-08-18", "seconds");
+        BetweenDatesAPI api = new BetweenDatesAPI();
+        String weekdaysInSeconds = (10 * 24 * 60 * 60) + " seconds";
+        String completeWeeksInSeconds = (7 * 24 * 60 * 60) + " seconds";
+        String daysInSeconds = (14 * 24 * 60 * 60) + " seconds";
+
+        //Act
+        var response = await api.getInterval(data);
+
+        //Assert
+        Assert.Equal(14, response?.days);
+        Assert.Equal(10, response?.weekdays);
+        Assert.Equal(1, response?.completeWeeks);
+        Assert.Equal(weekdaysInSeconds, response?.weekdaysInSeconds);
+        Assert.Equal(completeWeeksInSeconds, response?.completeWeeksInSeconds);
+        Assert.Equal(daysInSeconds, response?.daysInSeconds);
+    }
 }
