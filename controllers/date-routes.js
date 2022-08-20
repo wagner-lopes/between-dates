@@ -9,7 +9,7 @@ router.post('/interval', (req, res) => {
 
     //Check for mandatory paramether
     if (!endDate) {
-        res.send(`endDate parameter is mandatory`);
+        res.send({ message: `endDate parameter is mandatory` });
         return;
     }
     //Define

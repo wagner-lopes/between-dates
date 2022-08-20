@@ -6114,11 +6114,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\personal-projects\\unit-tests\\unit-tests.csproj",
+      "projectUniqueName": "c:\\personal-projects\\between-dates\\unitTests\\unit-tests.csproj",
       "projectName": "unit-tests",
-      "projectPath": "C:\\personal-projects\\unit-tests\\unit-tests.csproj",
+      "projectPath": "c:\\personal-projects\\between-dates\\unitTests\\unit-tests.csproj",
       "packagesPath": "C:\\Users\\wagne\\.nuget\\packages\\",
-      "outputPath": "C:\\personal-projects\\unit-tests\\obj\\",
+      "outputPath": "c:\\personal-projects\\between-dates\\unitTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\wagne\\AppData\\Roaming\\NuGet\\NuGet.Config"

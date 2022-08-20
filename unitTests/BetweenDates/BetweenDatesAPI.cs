@@ -10,19 +10,12 @@ namespace unitTests.BetweenDates
     {
         private HttpClient restClient = new HttpClient();
         private string URL = "http://localhost:3001/interval";
-        private string startDate;
-        private string endDate;
-        private string dateFormat;
 
-        public async Task<getInterval> getInterval()
+        public async Task<getInterval> getInterval(RequestData data)
         {
-            Request requestObject = new Request();
-            requestObject.startDate = "2022-08-07";
-            requestObject.endDate = "2022-08-12";
-
             HttpClient client = new HttpClient();
 
-            string json = JsonConvert.SerializeObject(requestObject);
+            string json = JsonConvert.SerializeObject(data);
 
             UriBuilder builder = new UriBuilder($"{URL}");
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
