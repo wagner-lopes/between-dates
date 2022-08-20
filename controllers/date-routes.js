@@ -40,10 +40,12 @@ router.post('/interval', (req, res) => {
     switch (dateFormat) {
         case ('seconds'):
             //remove 1 day from the end date because of the way the seconds are calculated
-            localEndDate = localEndDate.minus({ days: 1 })
+            localEndDate = localEndDate.minus({ days: 1 });
             result = localEndDate.diff(localStartDate, 'seconds');
             break;
         case ('minutes'):
+            //remove 1 day from the end date because of the way the minutes are calculated
+            localEndDate = localEndDate.minus({ days: 1 })
             result = localEndDate.diff(localStartDate, 'minutes');
             break;
         case ('hours'):
