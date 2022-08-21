@@ -11,3 +11,5 @@
 * Initial date is optional. In case it's null, use current datetime
 
 * Using luxon as date library because it's based on Moment, which is known to be a powerful javascript date library.
+* Considering complete weeks as Monday to Sunday
+* Use 2 decimal places for converting into years
