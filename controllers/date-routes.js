@@ -7,7 +7,7 @@ const {
     getCompleteWeeks
 } = require('../utils/usefulMethods')
 
-router.post('/interval', (req, res) => {
+router.post('/between-dates', (req, res) => {
     //Extract parameters from the body of the request
     const { startDate, endDate, dateFormat } = req.body;
     let localStartDate;

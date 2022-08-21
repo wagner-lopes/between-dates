@@ -9,7 +9,7 @@ namespace unitTests.BetweenDates
     public class BetweenDatesAPI
     {
         private HttpClient restClient = new HttpClient();
-        private string URL = "http://localhost:3001/interval";
+        private string URL = "http://localhost:3001/between-dates";
 
         public async Task<getInterval> getInterval(RequestData data)
         {

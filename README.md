@@ -1,7 +1,9 @@
-# date-conversion
+# Between Dates 
+Between dates is an API andpoint that can be used to calculate how many days, weekdays and complete weeks there are between 2 dates.
 
 # Deployed app
-[Between Dates](https://between-dates.herokuapp.com)
+* Endpoint: [https://between-dates.herokuapp.com/between-dates](https://between-dates.herokuapp.com)
+* Method: POST
 
 # Implementation decisions
 * The system uses the ISO Dates standart
