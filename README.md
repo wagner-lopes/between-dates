@@ -6,6 +6,7 @@ Between dates is an API andpoint that can be used to calculate how many days, we
 * Method: POST
 
 # How to use it
+## Calling the API
 * Make a POST request to https://between-dates.herokuapp.com/between-dates sending a payload that contains startDate, endDate and format
     * startDate (optional):
         * ISO Date format: YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DD
@@ -16,9 +17,13 @@ Between dates is an API andpoint that can be used to calculate how many days, we
     * format (optional):
         * Possible values: ***seconds***, ***minutes***, ***hours*** or ***years***
         * Provides extra properties in the response object with the completedWeeks, weekdays and days converted into the selected format.
+* To send different timezones, use the ISO datetime format YYYY-MM-DDTHH:MM:SSZ. The ***Z*** at the end defines the timezone.
+	* Examples: 
+		* ```2024-05-27T10:15:30-12:00```
+		* ```2023-07-31T00:00:00+09:30```
 
-# Examples
-## Get period without extra formats:
+## Examples
+### Get period without extra formats:
 * Request
 ```
 { 
@@ -36,7 +41,7 @@ Between dates is an API andpoint that can be used to calculate how many days, we
 }
 ```
 
-## Get period with extra formats:
+### Get period with extra formats:
 * Request
 ```
 { 
@@ -54,6 +59,27 @@ Between dates is an API andpoint that can be used to calculate how many days, we
 	"weekdaysInSeconds": "40780800 seconds",
 	"completeWeeksInSeconds": "56246400 seconds",
 	"daysInSeconds": "57196800 seconds"
+}
+```
+
+### Start and end date in different timezones
+* Request
+```
+{ 
+	"startDate": "2022-08-03T10:15:30-12:30", 
+	"endDate": "2024-05-27T10:15:30+12:30", 
+	"format": "seconds" 
+}
+```
+* Response
+```
+{
+	"completeWeeks": 92,
+	"weekdays": 471,
+	"days": 660,
+	"weekdaysInSeconds": "40694400 seconds",
+	"completeWeeksInSeconds": "55641600 seconds",
+	"daysInSeconds": "57024000 seconds"
 }
 ```
 
