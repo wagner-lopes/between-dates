@@ -12,7 +12,6 @@ function applyDateFormat(result, format) {
             break;
         case "years":
             return formatInYears(result);
-            break;
         default:
             return result;
     }
@@ -21,9 +20,9 @@ function applyDateFormat(result, format) {
 }
 
 function formatInYears(result) {
-    result.weekdays = `${result.weekdays / 365} years`;
-    result.completeWeeks = `${result.completeWeeks / (365 / 7)} years`;
-    result.days = `${result.days / 365} years`;
+    result.weekdaysInYears = `${(result.weekdays / 365).toFixed(2)} years`;
+    result.completeWeeksInYears = `${(result.completeWeeks / (365 / 7)).toFixed(2)} years`;
+    result.daysInYears = `${(result.days / 365).toFixed(2)} years`;
 
     return result;
 }
