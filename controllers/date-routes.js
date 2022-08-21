@@ -1,5 +1,7 @@
 const router = require('express').Router();
-const { DateTime } = require("luxon");
+const path = require('path')
+const { DateTime } = require('luxon');
+
 const {
     getWeekdays,
     applyDateFormat,
@@ -9,7 +11,7 @@ const {
 
 router.post('/between-dates', (req, res) => {
     //Extract parameters from the body of the request
-    const { startDate, endDate, dateFormat } = req.body;
+    const { startDate, endDate, format } = req.body;
     let localStartDate;
     let localEndDate;
 
@@ -61,9 +63,13 @@ router.post('/between-dates', (req, res) => {
 
     //Include results in other formats (seconds, minutes, hours, years)
     //if requested
-    dateFormat ? result = applyDateFormat(result, dateFormat) : null
+    format ? result = applyDateFormat(result, format) : null
 
     res.send(result)
+});
+
+router.get("*", (_, res) => {
+    res.sendFile(path.join(__dirname, '../README.md'));
 });
 
 module.exports = router;

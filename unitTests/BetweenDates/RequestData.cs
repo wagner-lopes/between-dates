@@ -4,13 +4,13 @@ namespace unitTests.BetweenDates
     {
         public string? startDate { get; set; }
         public string? endDate { get; set; }
-        public string? dateFormat { get; set; }
+        public string? format { get; set; }
 
-        public RequestData(string startDate, string endDate, string dateFormat)
+        public RequestData(string startDate, string endDate, string format)
         {
             this.startDate = startDate;
             this.endDate = endDate;
-            this.dateFormat = dateFormat;
+            this.format = format;
         }
     }
 }
